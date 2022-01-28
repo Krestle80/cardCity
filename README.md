@@ -2,6 +2,10 @@
 # Card City
 ## Description
 The goal for the project is to create a turn based 4x strategy card game, however i dont plan on having an exploration aspect, so it will be more of a 3x game. I would like for the player to be able to: place buildings via cards, to earn a variety of recources, as well as specific cards from said buildings, place units using cards, move units already on the field, and acheive at least three diffrent types of victory conditions.
+
+update v 0.0.1: 
+
+you can now place cards on the board, buildings add to ticking resources at the top of the screen, and appear on the board, although there is only two at the moment. One a settlement is randomly selected at the start of the game, and the other forts, can be places using the fort card. You can also put down units and move them, right now you can only place down a maniple.
 ## Table of Contents
 - #### [Description](##-description)
 - #### [Installation](##-Installation)
