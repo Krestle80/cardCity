@@ -5,7 +5,9 @@ The goal for the project is to create a turn based 4x strategy card game, howeve
 
 update v 0.0.1: 
 
-you can now place cards on the board, buildings add to ticking resources at the top of the screen, and appear on the board, although there is only two at the moment. One a settlement is randomly selected at the start of the game, and the other forts, can be places using the fort card. You can also put down units and move them, right now you can only place down a maniple.
+![current build](readMePhoto.png)
+
+you can now place cards on the board, buildings add to ticking resources at the top of the screen, and appear on the board, although there is only two at the moment. One a settlement, the yellow tile above, is randomly selected at the start of the game, and the other forts, which currently are in blue, can be places using the fort card. You can also put down units and move them, right now you can only place down a maniple, seen above as the red tile. I also added a next turn button in the top right of the screen, it is also red for the moment.
 ## Table of Contents
 - #### [Description](##-description)
 - #### [Installation](##-Installation)
