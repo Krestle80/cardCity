@@ -4,14 +4,25 @@ canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
 var canvasPosition = canvas.getBoundingClientRect();
+
+var turnCounter = 0
+
 let hand = []
 let selectedCard = null
 let handPosition = null
-let playerGold = 0
+let playerGold = 1
 let playerGpt = 1
 let playerTech = 0
 let playerTpt = 1
 let maniplePt = -1
+let playerTurn = true
+
+let aiGold = 1
+let aiGpt = 1
+let aiTech = 0
+let aiTpt = 1
+let aiManiplePt = -1
+
 let nextTurnHitBox = {
     x: canvas.width/1.1,
     y: canvas.height/100,
@@ -72,7 +83,7 @@ canvas.addEventListener('mousemove', (e) => {
 let tileArray = []
 
 class Tile {
-    constructor(x,y, position){
+    constructor(x,y, position, align){
         this.x = x;
         this.y = y;
         this.width = canvas.width/10
@@ -82,130 +93,162 @@ class Tile {
         this.highlighted = false
         //position in tile array
         this.position = position
+        //whose tile is this
+        this.align = align
     }
     update(){
-        if(collison(this, mouse) && mouse.clicked == true && selectedCard === "fort"  ){
-            if(this.building) return
-            this.building = selectedCard
-            hand.splice(handPosition, 1)
-            selectedCard = null
-            playerGpt +=1
-            maniplePt += 1
-        }
-
-        if(collison(this, mouse) && mouse.clicked == true && this.unit){
-            selectedUnit.type = this.unit
-            selectedUnit.selected = true
-            selectedUnit.position = this.position
-            if(!(this.position.toString().split('')[1] === "0" || this.position == 0)){
-                if(!(this.position.toString().split('')[1] === "1")){
-                    tileArray[this.position-2].highlighted = true
-                }
-                tileArray[this.position-1].highlighted = true
+        //insures its the players turn before alowing them to place or move units/ buildings
+        if(playerTurn == true){
+        //handles fort placement
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "fort" && this.align == "blue" && playerGold > 1 ){
+                if(this.building) return
+                this.building = new Fort("blue", this.position)
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGpt +=1
+                maniplePt += 1
+                playerGold -=2
             }
-            if(!(this.position.toString().split('')[1] === "9"|| this.position == 9)){
-                tileArray[this.position+1].highlighted = true
-                tileArray[this.position+2].highlighted = true
-            }
-            if(!(this.position <= 9)){
-                if(!(this.position < 20)){
-                    tileArray[this.position-20].highlighted = true
-                }
-                tileArray[this.position-10].highlighted = true
-                if(!(this.position.toString().split('')[1] === "9"|| this.position == 9)){
-                tileArray[this.position-9].highlighted = true
-                }
-            }
-            if(!(this.position.toString().split('')[1] === "0" || this.position == 0 || this.position <= 9)){
-                tileArray[this.position-11].highlighted = true
-            }
-            if(!(this.position >= 50)){
-                tileArray[this.position+10].highlighted = true
-                if(!(this.position >= 40)){
-                    tileArray[this.position+20].highlighted = true
+            //handles selecting a unit and then highlighting all tiles it can move to
+            if(collison(this, mouse) && mouse.clicked == true && this.unit && selectedUnit.selected == false){
+                selectedUnit.type = this.unit
+                selectedUnit.selected = true
+                selectedUnit.position = this.position
+                if(!(this.position.toString().split('')[1] === "0" || this.position == 0)){
+                    if(!(this.position.toString().split('')[1] === "1")){
+                        tileArray[this.position-2].highlighted = true
+                    }
+                    tileArray[this.position-1].highlighted = true
                 }
                 if(!(this.position.toString().split('')[1] === "9"|| this.position == 9)){
-                tileArray[this.position+11].highlighted = true
-            }
-                if(!(this.position.toString().split('')[1] === "0" || this.position==0)){
-                    tileArray[this.position+9].highlighted = true
+                    tileArray[this.position+1].highlighted = true
+                    tileArray[this.position+2].highlighted = true
                 }
-            }
-            
-        }
-       
-        if(collison(this,mouse) && mouse.clicked == true && this.highlighted == true ){
-            if(!(this.unit)){
-            tileArray[selectedUnit.position].unit = null
-            this.unit = selectedUnit.type}
-            if(!(selectedUnit.position.toString().split('')[1] === "0" || selectedUnit.position == 0)){
-                if(!(selectedUnit.position.toString().split('')[1] === "1")){
-                    tileArray[selectedUnit.position-2].highlighted = false
+                if(!(this.position <= 9)){
+                    if(!(this.position < 20)){
+                        tileArray[this.position-20].highlighted = true
+                    }
+                    tileArray[this.position-10].highlighted = true
+                    if(!(this.position.toString().split('')[1] === "9"|| this.position == 9)){
+                    tileArray[this.position-9].highlighted = true
+                    }
                 }
-                tileArray[selectedUnit.position-1].highlighted = false
-            }
-            if(!(selectedUnit.position.toString().split('')[1] === "9"|| selectedUnit.position == 9)){
-                tileArray[selectedUnit.position+1].highlighted = false
-                tileArray[selectedUnit.position+2].highlighted = false
-            }
-            if(!(selectedUnit.position <= 9)){
-                if(!(selectedUnit.position < 20)){
-                    tileArray[selectedUnit.position-20].highlighted = false
+                if(!(this.position.toString().split('')[1] === "0" || this.position == 0 || this.position <= 9)){
+                    tileArray[this.position-11].highlighted = true
                 }
-                tileArray[selectedUnit.position-10].highlighted = false
+                if(!(this.position >= 50)){
+                    tileArray[this.position+10].highlighted = true
+                    if(!(this.position >= 40)){
+                        tileArray[this.position+20].highlighted = true
+                    }
+                    if(!(this.position.toString().split('')[1] === "9"|| this.position == 9)){
+                    tileArray[this.position+11].highlighted = true
+                }
+                    if(!(this.position.toString().split('')[1] === "0" || this.position==0)){
+                        tileArray[this.position+9].highlighted = true
+                    }
+                }
+                
+            }
+        //handles unclicking the unit to unselect all posible movement tiles
+            if(collison(this,mouse) && mouse.clicked == true && this.highlighted == true ){
+                selectedUnit.selected = false
+                if(!(this.unit)){
+                tileArray[selectedUnit.position].unit = null
+                this.unit = selectedUnit.type
+                }
+                if(!(selectedUnit.position.toString().split('')[1] === "0" || selectedUnit.position == 0)){
+                    if(!(selectedUnit.position.toString().split('')[1] === "1")){
+                        tileArray[selectedUnit.position-2].highlighted = false
+                    }
+                    tileArray[selectedUnit.position-1].highlighted = false
+                }
                 if(!(selectedUnit.position.toString().split('')[1] === "9"|| selectedUnit.position == 9)){
-                tileArray[selectedUnit.position-9].highlighted = false
+                    tileArray[selectedUnit.position+1].highlighted = false
+                    tileArray[selectedUnit.position+2].highlighted = false
                 }
-            }
-            if(!(selectedUnit.position.toString().split('')[1] === "0" || selectedUnit.position == 0 || selectedUnit.position <= 9)){
-                tileArray[selectedUnit.position-11].highlighted = false
-            }
-            if(!(selectedUnit.position >= 50)){
-                tileArray[selectedUnit.position+10].highlighted = false
-                if(!(selectedUnit.position >= 40)){
-                    tileArray[selectedUnit.position+20].highlighted = false
+                if(!(selectedUnit.position <= 9)){
+                    if(!(selectedUnit.position < 20)){
+                        tileArray[selectedUnit.position-20].highlighted = false
+                    }
+                    tileArray[selectedUnit.position-10].highlighted = false
+                    if(!(selectedUnit.position.toString().split('')[1] === "9"|| selectedUnit.position == 9)){
+                    tileArray[selectedUnit.position-9].highlighted = false
+                    }
                 }
-                if(!(selectedUnit.position.toString().split('')[1] === "9"|| selectedUnit.position == 9)){
-                tileArray[selectedUnit.position+11].highlighted = false
-            }
-                if(!(selectedUnit.position.toString().split('')[1] === "0" || selectedUnit.position==0)){
-                    tileArray[selectedUnit.position+9].highlighted = false
+                if(!(selectedUnit.position.toString().split('')[1] === "0" || selectedUnit.position == 0 || selectedUnit.position <= 9)){
+                    tileArray[selectedUnit.position-11].highlighted = false
                 }
-            }
+                if(!(selectedUnit.position >= 50)){
+                    tileArray[selectedUnit.position+10].highlighted = false
+                    if(!(selectedUnit.position >= 40)){
+                        tileArray[selectedUnit.position+20].highlighted = false
+                    }
+                    if(!(selectedUnit.position.toString().split('')[1] === "9"|| selectedUnit.position == 9)){
+                    tileArray[selectedUnit.position+11].highlighted = false
+                }
+                    if(!(selectedUnit.position.toString().split('')[1] === "0" || selectedUnit.position==0)){
+                        tileArray[selectedUnit.position+9].highlighted = false
+                    }
+                }
 
+            }
+            //handles placing a maniple
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "maniple" && this.align == "blue" && playerGold > 0 ){
+                if(this.building || this.unit) return
+                this.unit = new Maniple(this.position, "blue")
+                console.log(this.unit.type)
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGold -= 1
+            }    
         }
-        if(collison(this, mouse) && mouse.clicked == true && selectedCard === "maniple"  ){
-            if(this.building || this.unit) return
-            this.unit = selectedCard
-            hand.splice(handPosition, 1)
-            selectedCard = null
-        }    
-
     }
     draw(){
         ctx.lineWidth = 5
+        if(this.building){
+            if(this.building.type === "fort"){
+                ctx.fillStyle = "blue"
+                ctx.fillRect(this.x, this.y, this.width, this.height)
+                ctx.fillStyle = '#6789b9'
+            }
+            if(this.building.type === "settlement"){
+                if(this.building.align == "blue"){
+                ctx.fillStyle = "orange"
+                ctx.fillRect(this.x, this.y, this.width, this.height)
+                ctx.fillStyle = '#6789b9'}
+                else {
+                    ctx.fillStyle = "black"
+                    ctx.fillRect(this.x, this.y, this.width, this.height)
+                    ctx.fillStyle = '#6789b9'}
+            }
+        }
+        else if(this.unit){
+            if(this.unit.type == "maniple"){
+                ctx.fillStyle = "red"
+                ctx.fillRect(this.x, this.y, this.width, this.height)
+                ctx.fillStyle = '#6789b9'
+            }
+        }
+        else{
+            
+            ctx.strokeStyle = "black"
+            ctx.lineWidth = 1
+            if(this.align === "blue"){ctx.fillStyle = "#5b99f0"}
+            if(this.align === "red"){ctx.fillStyle = "#f54949"}
+            ctx.fillRect(this.x, this.y, this.width, this.height)
+            ctx.strokeRect(this.x,this.y,this.width,this.height)
+            ctx.fillStyle = '#6789b9'
+        }        
+
+    }
+    select(){
         if(collison(this, mouse) || this.highlighted == true){
             ctx.strokeStyle = "yellow"
+            ctx.lineWidth = 5
             ctx.strokeRect(this.x,this.y,this.width,this.height)
             ctx.strokeStyle = '#2762b5'
         }
-        if(this.building === "fort"){
-            ctx.fillStyle = "blue"
-            ctx.fillRect(this.x, this.y, this.width, this.height)
-            ctx.fillStyle = '#6789b9'
-        }
-        if(this.building === "settlement"){
-            ctx.fillStyle = "orange"
-            ctx.fillRect(this.x, this.y, this.width, this.height)
-            ctx.fillStyle = '#6789b9'
-        }
-        if(this.unit == "maniple"){
-            ctx.fillStyle = "red"
-            ctx.fillRect(this.x, this.y, this.width, this.height)
-            ctx.fillStyle = '#6789b9'
-        }
-        // else{
-        // ctx.strokeRect(this.x,this.y,this.width,this.height)}
     }
 }
 
@@ -213,17 +256,28 @@ let gridMaker = () =>{
     let position = 0
     for(let y = canvas.height/15; y < canvas.height/1.6; y += canvas.height/10){
         for(let x =0; x < canvas.width; x += canvas.width/10){
-            tileArray.push(new Tile(x,y, position))
+            let align = ""
+            if (position < 5 || parseInt(position.toString().split('')[1]) < 5){
+                align = "blue"
+            }
+            else align = "red"
+            tileArray.push(new Tile(x,y, position, align))
             position ++
         }
     }
 }
 gridMaker()
 
+
+
 drawTiles = () =>{
     for(let i = 0; i < tileArray.length; i ++){
         tileArray[i].draw()
         tileArray[i].update()
+        
+    }
+    for(let i = 0; i < tileArray.length; i ++){
+        tileArray[i].select()
     }
 }
 
@@ -235,28 +289,94 @@ let collison = (first, second) =>{
             return true;
     };
 };
+//base class for all units
+class Unit {
+    constructor(health, attack, range, maxEnergy, type, position, align){
+       this.health = health
+       this.attack = attack
+       this.attacked = true
+       this.range = range
+       this.energy = 0
+       this.maxEnergy = maxEnergy
+       this.type = type
+       this.position = position
+       this.align = align
+    }
+    lifeCheck(){
+        if(this.health > 0) return true
+        return false
+    }
+}
+//unit subclasses 
+class Maniple extends Unit {
+    constructor(position, align){
+        super(2, 1, 1, 2,  "maniple", position, align) 
+    }
+}
+
+//buildings
+class Building {
+    constructor(health, gpt, tpt, type, position, align){
+        this.healt = health
+        this.gpt = gpt
+        this.tpt = tpt
+        this.type = type
+        this.position = position 
+        this.align = align
+        
+    }
+    lifeCheck(){
+        if(this.health > 0) return true
+        return false
+    }
+    build(){
+        if(this.align == "blue"){
+            playerGpt += this.gpt
+            playerTpt += this.tpt
+            if(this.maniplePt){
+                maniplePt += this.maniplePt
+            }
+        }
+    }
+}
+
+class Settlement extends Building{
+    constructor(position, align){
+        super(4, 1, 1, "settlement", position, align)
+    }
+}
+class Fort extends Building{
+    constructor(position, align){
+        super(2, 1, 0, "fort", position, align)
+        this.maniplePt = 1
+    }
+}
 //cards
 
 class Card {
     constructor(type){
         this.x = 0
         this.y = canvas.height/1.45
+        this.startY = canvas.height/1.45
         this.width = canvas.width/10
         this.height = canvas.height/3.4
         this.type = type
         this.selected = false
     }
     update(){
-                if(collison(this, mouse) && mouse.clicked === true && this.selected === true) {
-                    selectedCard = null
-                    this.selected = false       
-                }
+
             
                 if(collison(this, mouse) && mouse.clicked === true){
-                if(this.selected == true) return
-                selectedCard = this.type
-                this.selected = true
+                    if(this.selected == true){
+                        selectedCard = null
+                        this.selected = false
+                    }
+                    else if (this.selected == false){
+                        selectedCard = this.type
+                        this.selected = true
+                    }
                 }
+
             }
     draw(x){
         this.x = x
@@ -302,7 +422,7 @@ let handHandler = () => {
 
 }
 
-
+//handles the player ending their turn 
 let turnHandler = () =>{
     if(collison(nextTurnHitBox, mouse) && mouse.clicked == true)
     {
@@ -312,6 +432,7 @@ let turnHandler = () =>{
             for(let i = 0; i <= maniplePt ; i ++)
             hand.push(new Card("maniple"))
         } 
+        playerTurn = false
     }
 }
 //main animation loop
@@ -328,10 +449,16 @@ let animate = () =>{
 }
 
 let startUp = () => {
+    //picks player starting settlement
     let startx = Math.floor(Math.random()*3)
     let starty = (Math.floor(Math.random()*6))*10
     let settlementTile = startx+starty
-    tileArray[settlementTile].building = "settlement" 
+    tileArray[settlementTile].building = new Settlement(settlementTile, "blue")
+    //picks ai starting settlement
+    let aiStartx = Math.floor((Math.random()*2) + 7 )
+    let aiStarty = (Math.floor(Math.random()*6))*10
+    let aiStartSettlement = aiStartx + aiStarty
+    tileArray[aiStartSettlement].building = new Settlement(aiStartSettlement, "red")
     for( i = 0; i < 4; i ++){
         hand.push(new Card("fort"))
     }
