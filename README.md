@@ -1,13 +1,40 @@
 [![License](https://img.shields.io/badge/License-Boost%201.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt) 
 # Card City
 ## Description
-The goal for the project is to create a turn based 4x strategy card game, however i dont plan on having an exploration aspect, so it will be more of a 3x game. I would like for the player to be able to: place buildings via cards, to earn a variety of recources, as well as specific cards from said buildings, place units using cards, move units already on the field, and acheive at least three diffrent types of victory conditions.
+The goal for the project is to create a turn based strategy card game, I would like for the player to be able to: place buildings via cards, to earn a variety of recources, as well as specific cards from said buildings, place units using cards, move units already on the field, and be able to attack both enemy units and buildings with player units. 
 
 update v 0.0.1: 
 
 ![current build](readMePhoto.png)
 
-you can now place cards on the board, buildings add to ticking resources at the top of the screen, and appear on the board, although there is only two at the moment. One a settlement, the yellow tile above, is randomly selected at the start of the game, and the other forts, which currently are in blue, can be places using the fort card. You can also put down units and move them, right now you can only place down a maniple, seen above as the red tile. I also added a next turn button in the top right of the screen, it is also red for the moment.
+
+
+### The game screen seen above contains a Top display bar whith these items in order from left to right: 
+<p style = "text-align : center; margin-top: 20px;"> gold <p>
+<p style = "text-align : center;">gold earned perturn in paraenteses<p>
+<p style = "text-align : center;">Tech Per Turn in paraenteses<p>
+<p style = "text-align : center; margin-bottom: 20px;"> End turn button which is completely red<p>
+
+
+### The board contains: 
+<p style = "text-align : center; margin-top: 20px;"> 60 tiles half of which are the players (blue) and the other half the ais(red)<p>
+<p style = "text-align : center;">Units, the arrows, white for the player, and black for the ai, with values such as Health which is represented by the red bars on the top bar of the arrow<p>
+<p style = "text-align : center;">Units also have values for movement, attack strength, alignment, and tile position<p>
+<p style = "text-align : center;" > Buildings, right now they are all solid colors, forts, in dark blue, and Settlements, in orange for the player, and black for the ai<p>
+<p style = "text-align : center; margin-bottom: 20px;"> Building values include Health, alignment, gold per turn, and tech per turn<p>
+### The player can now: 
+<p style = "text-align : center;">Earn and spend Gold<p>
+<p style = "text-align : center;">Earn Tech Points (only from settlement right now)<p>
+<p style = "text-align : center; margin-top: 20px;">Place Cards on the board (dark blue tiles(forts) on the blue side and white arrow(maniples))<p>
+<p style = "text-align : center;">Select unit to move or attack enemy units<p>
+<p style = "text-align : center; margin-bottom: 20px;">End turn to recharge unit energy and attack, and gain gold/ tech per turn at their respective rates<p>
+
+### The ai can now: 
+<p style = "text-align : center; margin-top: 20px;"> place units <p>
+<p style = "text-align : center;">place forts<p>
+<p style = "text-align : center;" margin-bottom: 20px;>move units<p>
+
+
 ## Table of Contents
 - #### [Description](##-description)
 - #### [Installation](##-Installation)
@@ -19,9 +46,9 @@ you can now place cards on the board, buildings add to ticking resources at the 
 
 
 ## Installation
-You can git clone it off gitHub, or hopefully I will be able to deploy it as a visitable website.
+You can git clone it off gitHub. Right now there is still a game breaking bug with the Ai. After it is fixed I will deploy to gitHub pages.
 ## Usage Information
-I will have a tutorial section in game.
+I will have a tutorial section in game. Right now I am mostly just trying to get the base mechanics in place. The game isnt yet playable
 ## License
 Boost Software License - Version 1.0 - August 17th, 2003
  
