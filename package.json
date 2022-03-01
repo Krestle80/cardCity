@@ -1,0 +1,19 @@
+{
+  "name": "card_city",
+  "version": "1.0.0",
+  "description": "Card Strategey Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krestle80/cardCity.git"
+  },
+  "author": "Kyle Costello",
+  "license": "BSL-1.0",
+  "bugs": {
+    "url": "https://github.com/Krestle80/cardCity/issues"
+  },
+  "homepage": "https://github.com/Krestle80/cardCity#readme"
+}
