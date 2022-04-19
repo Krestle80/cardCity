@@ -1,4 +1,7 @@
-
+let drawUnits = () =>{
+    playerUnitArray.forEach((element) =>{element.draw(tileArray[element.tile].x,tileArray[element.tile].y)})
+    aiUnitArray.forEach((element) =>{element.draw(tileArray[element.tile].x,tileArray[element.tile].y)})
+}
 
 let playerTurnChangeOver = () =>{
         //adds players recources at the end of the turn as well as making it their turn again
@@ -14,6 +17,7 @@ let playerTurnChangeOver = () =>{
         selectedUnit = null
         playerTurn = true
 }
+
 let blueLoss = ()=> {
     ctx.fillStyle = "white"
     ctx.fillRect(canvas.width/2.9, canvas.height/3.2, canvas.width/3.33, canvas.height/6)
@@ -43,6 +47,8 @@ let animate = (time) =>{
     drawDisplay()
     drawTiles()
     handHandler()
+    drawUnits()
+
     if(capitalArray[0].health === 0){
         blueLoss()
         return

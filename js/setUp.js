@@ -14,7 +14,6 @@ let scaleY = canvas.height/canvasPosition.height
 let fps = 30;
 let framMinTime = (1000/60)*(60/fps)- (1000/60)*0.5
 let lastFrameTime = 0
-
 //game rule variables
 var turnCounter = 0
 

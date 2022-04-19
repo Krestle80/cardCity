@@ -132,7 +132,7 @@ class Tile {
                         selectedUnit.direction = "right"
                         selectedUnit.energy -= 1
                         console.log( selectedUnit, this.unit)
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                         tileArray[selectedUnit.tile].unit = null
                         tileArray[selectedUnit.tile + 1].unit = selectedUnit
                         tileArray[selectedUnit.tile + 1].unit.tile = selectedUnit.tile + 1
@@ -142,7 +142,7 @@ class Tile {
                         selectedUnit.direction = "left"
                         selectedUnit.energy -= 1
                         console.log(this.unit, selectedUnit)
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                         //moves unit
                         console.log(tileArray[selectedUnit.tile - 1])
                         tileArray[selectedUnit.tile].unit = null
@@ -155,7 +155,7 @@ class Tile {
                         selectedUnit.direction = "top"
                         selectedUnit.energy -= 1
                         console.log(this.unit, selectedUnit)
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                         //moves unit
                         console.log(tileArray[selectedUnit.tile - 10])
                         tileArray[selectedUnit.tile].unit = null
@@ -167,8 +167,7 @@ class Tile {
                         //changes unit inner states
                         selectedUnit.direction = "bottom"
                         selectedUnit.energy -= 1
-                        console.log(this.unit, selectedUnit)
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                         //moves unit
                         console.log(tileArray[selectedUnit.tile + 10])
                         tileArray[selectedUnit.tile].unit = null
@@ -178,29 +177,29 @@ class Tile {
                     }
                     else if(this.position === selectedUnit.tile + 1 ) {
                         selectedUnit.direction = "right"
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                     }
                     else if(this.position === selectedUnit.tile - 1 ) {
                         selectedUnit.direction = "left"
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                     }
                     else if(this.position === selectedUnit.tile + 10 ) {
                         selectedUnit.direction = "bottom"
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                     }
                     else if(this.position === selectedUnit.tile - 10 ) {
                         selectedUnit.direction = "top"
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                     }
                     else {
 
                         console.log(this.unit, selectedUnit)
-                        Unit.prototype.attack.call(selectedUnit, this.unit)
+                        Unit.prototype.shoot.call(selectedUnit, this.unit)
                     }
                 }
                 // attacking a building
                 else if(this.building && this.building.align === "red" && selectedUnit.attacked == false){
-                    Unit.prototype.attack.call(selectedUnit, this.building)
+                    Unit.prototype.shoot.call(selectedUnit, this.building)
                 }
             }
             //handles selecting a unit and then highlighting all tiles it can move to/ attack
@@ -294,7 +293,7 @@ class Tile {
             // ctx.lineTo(this.x + this.width, this.y + this.height/2)
             // ctx.stroke()
             // ctx.closePath()
-            this.unit.draw(this.x, this.y)
+            // this.unit.draw(this.x, this.y)
         }
 
     }

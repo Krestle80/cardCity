@@ -25,24 +25,24 @@ let aiHandler = () =>{
     //spawns forts 
     if (aiGold > 3 && turnCounter < 25){
         let fortRandomizer = () =>{
-            let fortPosition = ""
+            let fortPosition = 0
             randomFortsCounter += 1
             if(turnCounter < 14){
                 fortPosition = positionRandomizer(7, 9)
             }
             else fortPosition = positionRandomizer(5, 7)
-            if(tileArray[fortPosition].building && randomFortsCounter <= 35){
-
+            if(tileArray[fortPosition].building ){
                 return fortRandomizer()
             }
-            else fortPosition = undefined
+            else if(randomFortsCounter >= 35) fortPosition = undefined
             return fortPosition
         }
         if(turnCounter < 25) {
             randomFortsCounter = 0
             let fortPosition = fortRandomizer()
+            console.log(fortPosition)
             if(fortPosition){
-                tileArray[fortPosition].building = new Fort(fortRandomizer(), 'red')
+                tileArray[fortPosition].building = new Fort(fortPosition, 'red')
                 aiGold -= 1 
                 aiGpt +=1
             }

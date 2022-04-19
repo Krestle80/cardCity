@@ -1,4 +1,4 @@
-let drawUnitShot = (x,y, unit)=>{
+let drawUnitShotY = (x,y, angle, unit)=>{
     ctx.beginPath()
     ctx.save()
     ctx.translate( x + canvas.width/20.4, y + canvas.height/20)

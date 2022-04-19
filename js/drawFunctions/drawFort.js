@@ -5,6 +5,10 @@ let drawFort = (x,y, color, fortHealth) => {
     ctx.translate(x + canvas.width/20, y + canvas.height/34)
     ctx.rotate(Math.PI/4)
     ctx.fillRect(0, 0, canvas.width/60, canvas.width/60)
+    if(color ==="white"){
+        ctx.strokeStyle = "#2762b5"
+    }
+    else ctx.strokeStyle = "#a64646"
     ctx.strokeRect(0, 0, canvas.width/60, canvas.width/60)
     ctx.fillStyle = "#940404"
     ctx.beginPath()

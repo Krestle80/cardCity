@@ -79,26 +79,13 @@ let drawUnitX = (angle, unitColor, x, y, unit) => {
 
     //circle for shot
     if(unit.loaded == true){
-        
-        ctx.beginPath()
-        ctx.save()
-        
-        ctx.fillStyle = "red"
-        ctx.translate( x + (canvas.width/20), y + canvas.height/20)
-        ctx.rotate(angle*2)
-        var shotGradient = ctx.createRadialGradient( 0, canvas.width/50,unit.shotRadius/5, 0, canvas.width/50,unit.shotRadius);
-        
-        shotGradient.addColorStop(.0, '#940404');
-        shotGradient.addColorStop(.4, '#c49a45');
-        shotGradient.addColorStop(.9, 'white');
-        shotGradient.addColorStop(1, 'black');
-        ctx.fillStyle = shotGradient
-        ctx.arc(0, canvas.width/50, unit.shotRadius, 0, 2*Math.PI)
-        ctx.fill()
-        ctx.restore()
-        ctx.closePath()
-
-
+        drawUnitShotX(x, y, angle, unit)
+        unit.shotX = x
+        unit.shotY = y
+    }
+    //function for shot animation
+    if(unit.shooting == true){
+        handleUnitShotX(x, y, angle, unit)
     }
 }
 let drawUnitY = (angle, unitColor, x, y, unit) => {
@@ -176,9 +163,9 @@ ctx.stroke()
 ctx.closePath()
 }
 if(unit.loaded == true){
-    drawUnitShot(x,y, unit)
+    drawUnitShotY(x,y, angle, unit)
 }
-// if(unit.shooting === true){
-
-// }
+if(unit.shooting === true){
+    handleUnitShotY(x, y, angle, unit)
+}
 }

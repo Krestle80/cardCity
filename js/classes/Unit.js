@@ -16,12 +16,14 @@ class Unit {
        this.shotSpeed = 1 
        this.loaded = false
        this.shooting = false
+       this.particles = []
+       this.shotParticlesInitiated = false
        this.shotRadius = canvas.height/150
        this.initialShotRadius = canvas.height/150
-       
+       this.shotShrunk = false
        // this is here so buildings can be sorted out and handled sepratly 
        this.unitBuildCheck = true 
-       
+       this.target
     }
     lifeCheck(){
         if(this.health > 0) return true
@@ -31,6 +33,12 @@ class Unit {
         this.energy = this.maxEnergy
         this.attacked = false
         this.loaded = true
+    }
+    shoot(target){
+        this.attacked = true
+        this.loaded = false
+        this.shooting = true
+        this.target = target
     }
     attack(target){
         console.log(target)
@@ -52,7 +60,6 @@ class Unit {
                 console.log("right attack")
             }
             target.health -= this.attack
-            console.log(target.health)
             //checks to see if the attacked unit is still alive
             if(!Unit.prototype.lifeCheck.call(target)){
                 tileArray[target.tile].unit = null 
@@ -65,18 +72,16 @@ class Unit {
                 for(let i = 0; i < aiUnitArray.length; i ++){
                     aiUnitArray[i].position = i
                 }
-            }
                 console.log("Rest in Peace")
             }
-    
-    else{
-        target.health -= this.attack
-        if(!Building.prototype.lifeCheck.call(target)){
-            tileArray[target.position].building = null 
         }
-    }
-    this.attacked = true
-    this.loaded = false
-    console.log(target)
+    
+        else{
+            target.health -= this.attack
+            if(!(Building.prototype.lifeCheck.call(target))){
+                tileArray[target.position].building = null
+            }
+        }
+        console.log(target)
     }
 }
