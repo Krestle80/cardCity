@@ -1,12 +1,12 @@
 let aiUnitMoveAndAttack = (unit, differenceOfTile, direction, energyCost, target ) =>{
-    console.log(unit, "line three bug")
+    console.log(unit, target, differenceOfTile,  "line three bug")
     tileArray[unit.tile].unit = null
-    tileArray[unit.tile + differenceOfTile].unit = aiUnitArray[unit.position]
+    tileArray[unit.tile + differenceOfTile].unit = unit
     console.log(aiUnitArray[unit.position])
-    aiUnitArray[unit.position].tile += differenceOfTile
+    unit.tile += differenceOfTile
     unit.energy -= energyCost 
     unit.direction = direction
     if(unit.attacked === false){
-        Unit.prototype.attack.call(unit, target)
+        Unit.prototype.shoot.call(unit, target)
     }
 }

@@ -89,7 +89,7 @@ let aiHandler = () =>{
                     }
                     else {
                         e.direction = "left"
-                        Unit.prototype.attack.call(e, checkArray[0])
+                        Unit.prototype.shoot.call(e, checkArray[0])
                     }
                 }
             }
@@ -103,7 +103,7 @@ let aiHandler = () =>{
                     }
                     else {
                         e.direction = "right"
-                        Unit.prototype.attack.call(e, checkArray[3])
+                        Unit.prototype.shoot.call(e, checkArray[3])
                     }
                 }
             }
@@ -117,7 +117,7 @@ let aiHandler = () =>{
                     }
                     else {
                         e.direction = "top"
-                        Unit.prototype.attack.call(e, checkArray[6])
+                        Unit.prototype.shoot.call(e, checkArray[6])
                     }
                 }
             }
@@ -131,7 +131,7 @@ let aiHandler = () =>{
                     }
                     else {
                         e.direction = "bottom"
-                        Unit.prototype.attack.call(e, checkArray[15])
+                        Unit.prototype.shoot.call(e, checkArray[15])
                     }
                 }
             }

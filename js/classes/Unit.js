@@ -33,6 +33,7 @@ class Unit {
         this.energy = this.maxEnergy
         this.attacked = false
         this.loaded = true
+        this.shotRadius = this.initialShotRadius
     }
     shoot(target){
         this.attacked = true
@@ -41,7 +42,6 @@ class Unit {
         this.target = target
     }
     attack(target){
-        console.log(target)
         if(target.unitBuildCheck){
             if(this.direction === "top" && (target.direction !== 'bottom')){
                 target.health -= this.attack

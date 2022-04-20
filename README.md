@@ -1,38 +1,39 @@
 [![License](https://img.shields.io/badge/License-Boost%201.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt) 
 # Card City
 ## Description
-The goal for the project is to create a turn based strategy card game, I would like for the player to be able to: place buildings via cards, to earn a variety of recources, as well as specific cards from said buildings, place units using cards, move units already on the field, and be able to attack both enemy units and buildings with player units. 
 
-update v 0.0.1: 
+Card City is a strategy board game where the player uses recources, units, buildings, and cards to try and achieve victory over the computer. Hot Seat Multiplayer coming soon.
+update v 0.0.2: 
 
 ![current build](readMePhoto.png)
 
 
 
 ### The game screen seen above contains a Top display bar whith these items in order from left to right: 
-<p style = "text-align : center; margin-top: 20px;"> gold <p>
-<p style = "text-align : center;">gold earned perturn in paraenteses<p>
-<p style = "text-align : center;">Tech Per Turn in paraenteses<p>
-<p style = "text-align : center; margin-bottom: 20px;"> End turn button which is completely red<p>
+<p style = "text-align : center; margin-top: 20px;">Total gold <p>
+<p style = "text-align : center;">gold earned per turn in parentheses<p>
+<p style = "text-align : center;">Total Tech<p>
+<p style = "text-align : center;">Tech Per Turn in parentheses<p>
+<p style = "text-align : center; margin-bottom: 20px;"> End turn button which is completely red for now<p>
 
 
 ### The board contains: 
 <p style = "text-align : center; margin-top: 20px;"> 60 tiles half of which are the players (blue) and the other half the ais(red)<p>
 <p style = "text-align : center;">Units, the arrows, white for the player, and black for the ai, with values such as Health which is represented by the red bars on the top bar of the arrow<p>
 <p style = "text-align : center;">Units also have values for movement, attack strength, alignment, and tile position<p>
-<p style = "text-align : center;" > Buildings, right now they are all solid colors, forts, in dark blue, and Settlements, in orange for the player, and black for the ai<p>
+<p style = "text-align : center;" > Buildings, the shapes, have the same color scheme as units, right now there is a settlement represented by a star which gives +1 tech, gold, and maniple card everyturn, and a fort represented by diamonds which gives +1 gold per turn<p>
 <p style = "text-align : center; margin-bottom: 20px;"> Building values include Health, alignment, gold per turn, and tech per turn<p>
 ### The player can now: 
 <p style = "text-align : center;">Earn and spend Gold<p>
 <p style = "text-align : center;">Earn Tech Points (only from settlement right now)<p>
-<p style = "text-align : center; margin-top: 20px;">Place Cards on the board (dark blue tiles(forts) on the blue side and white arrow(maniples))<p>
+<p style = "text-align : center; margin-top: 20px;">Place Cards on the board (white Diamonds(forts) on the blue side and white arrows(maniples))<p>
 <p style = "text-align : center;">Select unit to move or attack enemy units<p>
 <p style = "text-align : center; margin-bottom: 20px;">End turn to recharge unit energy and attack, and gain gold/ tech per turn at their respective rates<p>
 
 ### The ai can now: 
 <p style = "text-align : center; margin-top: 20px;"> place units <p>
 <p style = "text-align : center;">place forts<p>
-<p style = "text-align : center;" margin-bottom: 20px;>move units<p>
+<p style = "text-align : center;" margin-bottom: 20px;>move units and attack player units<p>
 
 
 ## Table of Contents
@@ -46,9 +47,9 @@ update v 0.0.1:
 
 
 ## Installation
-You can git clone it off gitHub. Right now there is still a game breaking bug with the Ai. After it is fixed I will deploy to gitHub pages.
+Play the game on its Github deployment [Here](https://krestle80.github.io/cardCity/), or clone it off of GitHub and open the index.html file in your browser
 ## Usage Information
-I will have a tutorial section in game. Right now I am mostly just trying to get the base mechanics in place. The game isnt yet playable
+The entire game so far is point and click. Right now sometimes the ai causes a major bug that errors out the game, I'm working on smoothing it out, but if something does happen a quick reload will fix it, at the cost of all of your progress
 ## License
 Boost Software License - Version 1.0 - August 17th, 2003
  
@@ -74,10 +75,10 @@ Boost Software License - Version 1.0 - August 17th, 2003
  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  DEALINGS IN THE SOFTWARE.
 ## Contributing
-If you have any improvements, and or suggestions please email me at the email provided in the questions section. I would love a good suggestion, or help coding. 
+If you have any improvements, and or suggestions please email me at the email provided in the questions section.
 
 ## Questions
 If you have any questions regarding this project please feel free to reach out at 
 
 -Email: kylec0217@gmail.com 
--GitHub Username: krestle80 
+-GitHub: [krestle80](https://github.com/Krestle80) 

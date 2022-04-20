@@ -100,11 +100,17 @@ let removeHealthSegment = (x,y,angle, fill)=>{
     ctx.rotate(angle)
     ctx.beginPath()
     ctx.moveTo(0,0)
-    ctx.lineTo( canvas.height/280, -canvas.height/180)
-    ctx.lineTo(-canvas.height/280, -canvas.height/180)
+    ctx.lineTo( canvas.height/280, -canvas.height/150)
+    ctx.lineTo(-canvas.height/280, -canvas.height/150)
     ctx.closePath()
     ctx.fillStyle = fill
     ctx.fill()
+    ctx.beginPath()
+    ctx.moveTo(0, -canvas.height/45)
+    ctx.lineTo( canvas.height/190, -canvas.height/150)
+    ctx.lineTo(-canvas.height/190, -canvas.height/150)
+    ctx.closePath()
+    ctx.fill()    
     ctx.restore()
 
 }
