@@ -1,6 +1,5 @@
 let drawUnits = () =>{
-    playerUnitArray.forEach((element) =>{element.draw(tileArray[element.tile].x,tileArray[element.tile].y)})
-    aiUnitArray.forEach((element) =>{element.draw(tileArray[element.tile].x,tileArray[element.tile].y)})
+    unitArray.forEach((element) =>{element.draw(tileArray[element.tile].x,tileArray[element.tile].y)})
 }
 
 let playerTurnChangeOver = () =>{
@@ -41,13 +40,16 @@ let animate = (time) =>{
     lastFrameTime = time
     if(theta >=100) theta = 0
     theta += 0.1
-    ctx.clearRect(0,0,canvas.width, canvas.height)
-    ctx.clearRect(0,0, canvas.width, canvas.height)
-    turnHandler()
-    drawDisplay()
-    drawTiles()
-    handHandler()
-    drawUnits()
+    if(techCanvas.style.zIndex <= 0){
+        ctx.clearRect(0,0,canvas.width, canvas.height)
+        ctx.clearRect(0,0, canvas.width, canvas.height)
+        topDisplayClick()
+        drawDisplay()
+        drawTiles()
+        handHandler()
+        drawUnits()
+       
+    }else  drawTechScreen()
 
     if(capitalArray[0].health === 0){
         blueLoss()
@@ -79,6 +81,7 @@ let startUp = () => {
     }
     hand.push(new Card("maniple"))
     hand.push(new Card("aiTest"))
+    hand.push(new Card("wall"))
     animate()
 }
 startUp()

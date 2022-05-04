@@ -1,4 +1,4 @@
-//buildings
+
 class Building {
     constructor(health, gpt, tpt, type, position, align){
         this.health = health
@@ -23,3 +23,4 @@ class Building {
         }
     }
 }
+//buildings

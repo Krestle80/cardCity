@@ -114,7 +114,7 @@ let checkUnitsThree = (unit) => {
             checkArray.push(7)
             checkArray.push(8)
         }
-        if(!(unit.tile <=9 || parseInt(unit.tile.toString().split('')[0]) === 0)){
+        if(!(unit.tile <= 9 || parseInt(unit.tile.toString().split('')[1]) === 0)){
 
             //checks top left diagnal 1
             if((tileArray[unit.tile - 11].unit)){
@@ -126,7 +126,6 @@ let checkUnitsThree = (unit) => {
             else checkArray.push(9)
             //checks top left diagnal 2 b, letter labels are from top down
             if(!(unit.tile <= 2 || parseInt(unit.tile.toString().split('')[1]) <= 2 || unit.tile ===11)){
-                console.log(unit.tile.toString().split('')[1])
                 if(tileArray[unit.tile - 12].unit){
                     checkArray.push(tileArray[unit.tile - 12].unit)
                 }

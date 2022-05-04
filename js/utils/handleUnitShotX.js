@@ -1,5 +1,9 @@
 let particleArray = ''
 let handleUnitShotX = (x, y , angle, unit) =>{
+    if(unit.shotInitiated === false){
+        unit.shotX = x
+        unit.shotInitiated = true
+    }
     if(angle < 0){
         if(unit.shotX <= (x + canvas.width/12.5)){
             unit.shotX += 6
@@ -37,7 +41,7 @@ let handleUnitShotX = (x, y , angle, unit) =>{
         unit.particles.update()
         if(unit.particles.array.length < 3){
             unit.shooting = false
-            !Unit.prototype.attack.call(unit, unit.target)
+            Unit.prototype.attack.call(unit, unit.target)
         }
     }
 }

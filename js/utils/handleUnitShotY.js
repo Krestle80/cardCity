@@ -1,4 +1,8 @@
 let handleUnitShotY = (x, y, angle, unit) =>{
+    if(unit.shotInitiated === false){
+        unit.shotY = y
+        unit.shotInitiated = true
+    }
     if(angle > 0){
         if(unit.shotY <= (y + canvas.height/17)){
             unit.shotY += 6
@@ -36,7 +40,7 @@ let handleUnitShotY = (x, y, angle, unit) =>{
         unit.particles.update()
         if(unit.particles.array.length < 3){
             unit.shooting = false
-            !Unit.prototype.attack.call(unit, unit.target)
+            Unit.prototype.attack.call(unit, unit.target)
         }
     }
 }

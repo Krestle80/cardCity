@@ -3,8 +3,7 @@ let theta = 0
 class Maniple extends Unit {
     constructor(position, tile, align){
         super(2, 1, 1, 2,  "maniple", position, tile, align)
-        let shotX = 0
-        let shotY = 0
+
     }
     draw( x, y ){
         let unitColor = ''

@@ -1,7 +1,5 @@
 //handles the player ending their turn 
 let turnHandler = () =>{
-    if(collison(nextTurnHitBox, mouse) && mouse.clicked == true && playerTurn == true)
-    {
         //adds ai recouces
         aiGold += aiGpt
         aiTech += aiTpt
@@ -12,12 +10,12 @@ let turnHandler = () =>{
         playerTurn = false
         turnCounter +=1
         aiHandler()
-    }
+    
 }
 
 let aiHandler = () =>{
     if(turnCounter > 1){
-        aiUnitArray.forEach(unit =>{
+        unitArray.forEach(unit =>{
             unit.recharge()
         })
     }
@@ -68,20 +66,22 @@ let aiHandler = () =>{
             let unitPosition = unitRandomizer()
             console.log(unitPosition)
             if(unitPosition){
-                tileArray[unitPosition].unit = new Maniple( aiUnitArray.length, unitPosition, 'red')
-                aiUnitArray.push(tileArray[unitPosition].unit)
+                tileArray[unitPosition].unit = new Maniple( unitArray.length, unitPosition, 'red')
+                unitArray.push(tileArray[unitPosition].unit)
             }
             
         }
     }
-    aiUnitArray.forEach(e => {
-        //check for units within three tiles and save them into an array
-        let checkArray = checkUnitsThree(e)
-        console.log(checkArray)
+    unitArray.forEach(e => {
+        if(e.align == "red"){
 
+            //check for units within three tiles and save them into an array
+            let checkArray = checkUnitsThree(e)
+            console.log(checkArray)
+    
             if(!(checkArray[0] === 0) && e.attacked === false){
                 if(checkArray[0].align === "blue"){
-                    if((checkArray[9] === 9  && (checkArray[0].direction === "right" || !checkArray[0].unitBuildCheck) && checkArray[0].health === 2 && !e.tile <= 9 && e.energy > 1 )){
+                    if((checkArray[9] === 9  && (checkArray[0].direction === "right" || !checkArray[0].unitBuildCheck) && checkArray[0].health === 2 && !(e.tile <= 9) && e.energy > 1 )){
                         aiUnitMoveAndAttack(e, -11, "bottom", 2, checkArray[0])
                     }
                     else if(checkArray[18] === 18 && (checkArray[0].direction === "right" || !checkArray[0].unitBuildCheck) && checkArray[0].health === 2 && !(e.tile >= 49) && e.energy > 1 && checkArray[0].direction === "right"  && e.energy > 1){
@@ -294,12 +294,13 @@ let aiHandler = () =>{
 
             if(e.tile > 2 && (parseInt(e.tile.toString().split('')[1])) > 2 && !(tileArray[e.tile-2].unit) && e.energy === 2 && e.attacked == false){
                 tileArray[e.tile].unit = null
-                tileArray[e.tile-2].unit = aiUnitArray[e.position]
-                aiUnitArray[e.position].tile -= 2
+                tileArray[e.tile-2].unit = unitArray[e.position]
+                unitArray[e.position].tile -= 2
             }
         }
-    )
+    }
+)
 
-    
-    playerTurnChangeOver()
+
+playerTurnChangeOver()
 }

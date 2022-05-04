@@ -23,7 +23,9 @@ class Unit {
        this.shotShrunk = false
        // this is here so buildings can be sorted out and handled sepratly 
        this.unitBuildCheck = true 
-       this.target
+       this.target = ""
+       this.shotX = 0
+       this.shotY = 0
     }
     lifeCheck(){
         if(this.health > 0) return true
@@ -34,6 +36,10 @@ class Unit {
         this.attacked = false
         this.loaded = true
         this.shotRadius = this.initialShotRadius
+        this.shooting = false
+        this.shotShrunk= false
+        this.particles = []
+        this.shotParticlesInitiated = false
     }
     shoot(target){
         this.attacked = true
@@ -63,14 +69,11 @@ class Unit {
             //checks to see if the attacked unit is still alive
             if(!Unit.prototype.lifeCheck.call(target)){
                 tileArray[target.tile].unit = null 
-                aiUnitArray.splice(target.position, 1)
+                unitArray.splice(target.position, 1)
 
                 //loops through player and ai arrays and updates positions after removal
-                for(let i = 0; i < playerUnitArray.length; i ++){
-                    playerUnitArray[i].position = i
-                }
-                for(let i = 0; i < aiUnitArray.length; i ++){
-                    aiUnitArray[i].position = i
+                for(let i = 0; i < unitArray.length; i ++){
+                    unitArray[i].position = i
                 }
                 console.log("Rest in Peace")
             }

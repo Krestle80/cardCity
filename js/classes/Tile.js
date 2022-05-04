@@ -27,8 +27,8 @@ class Tile {
 
             //testing ai units
             if(collison(this, mouse) && mouse.clicked == true && selectedCard === "aiTest" && this.align == "blue"){
-                this.unit = new Maniple(aiUnitArray.length, this.position, "red")
-                aiUnitArray.push(this.unit)
+                this.unit = new Maniple(unitArray.length, this.position, "red")
+                unitArray.push(this.unit)
             }
             //handles unclicking or moving the unit while unselecting all posible movement tiles 
             if(collison(this,mouse) && mouse.clicked == true && selectedUnit && selectedUnit.selected === true && (this.highlighted == true || (selectedUnit && this.position === selectedUnit.tile && selectedUnit.selected == true))){
@@ -199,6 +199,18 @@ class Tile {
                 }
                 // attacking a building
                 else if(this.building && this.building.align === "red" && selectedUnit.attacked == false){
+                    if(this.position === selectedUnit.tile - 10){
+                        selectedUnit.direction = "top"
+                    }
+                    if(this.position === selectedUnit.tile + 1){
+                        selectedUnit.direction = "right"
+                    }
+                    if(this.position === selectedUnit.tile + 10){
+                        selectedUnit.direction = "bottom"
+                    }
+                    if(this.position === selectedUnit.tile - 1){
+                        selectedUnit.direction = "left"
+                    }
                     Unit.prototype.shoot.call(selectedUnit, this.building)
                 }
             }
@@ -260,9 +272,15 @@ class Tile {
             //handles placing a maniple
             if(collison(this, mouse) && mouse.clicked == true && selectedCard === "maniple" && this.align == "blue" && playerGold > 0 ){
                 if(this.building || this.unit) return
-                let unitPosition = playerUnitArray.length
-                this.unit = new Maniple(unitPosition, this.position, "blue")
-                playerUnitArray.push(this.unit)
+                this.unit = new Maniple(unitArray.length, this.position, "blue")
+                unitArray.push(this.unit)
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGold -= 1
+            }    
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "wall" && this.align == "blue" && playerGold > 0 ){
+                if(this.building || this.unit) return
+                this.building = new BuildingRange(this.position, "blue")
                 hand.splice(handPosition, 1)
                 selectedCard = null
                 playerGold -= 1

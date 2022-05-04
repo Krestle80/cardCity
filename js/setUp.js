@@ -3,12 +3,14 @@ let ctx = canvas.getContext('2d')
 canvas.width = 1920
 canvas.height = 1080
 var canvasPosition = canvas.getBoundingClientRect();
-console.log(canvasPosition)
 
 let scaleX = canvas.width/canvasPosition.width
-
 let scaleY = canvas.height/canvasPosition.height
 
+let techCanvas = document.getElementById('canvas2')
+let techCtx = techCanvas.getContext('2d')
+techCanvas.width = 1920
+techCanvas.height = 1080
 
 //variabeles for setting framerate
 let fps = 30;
@@ -36,16 +38,12 @@ let aiManiplePt = -1
 
 // arrays to hold a bunch of objects
 let tileArray = []
+let unitArray = []
 let playerUnitArray = []
 let aiUnitArray = []
 let capitalArray = []
 
-let nextTurnHitBox = {
-    x: canvas.width/1.1,
-    y: canvas.height/100,
-    width:100,
-    height: 40
-}
+
 //global object to hold data on a selected unit
 let selectedUnit = ""
 
@@ -85,11 +83,27 @@ canvas.addEventListener('mousemove', (e) => {
     mouse.y = (e.y*scaleY) - canvasPosition.top;
 })
 
+techCanvas.addEventListener('mousedown', (e) =>{
+    mouse.clicked = true
+})
+
+techCanvas.addEventListener('mouseup', (e) =>{
+    mouse.clicked = false
+})
+
+techCanvas.addEventListener('mousemove', (e) => {
+    mouse.x = (e.x*scaleX) - canvasPosition.left;
+    mouse.y = (e.y*scaleY) - canvasPosition.top;
+})
+
 let collison = (first, second) =>{
     if(!(first.x > second.x + second.width || 
         first.x + first.width < second.x || 
         first.y > second.y + second.height ||
         first.y + first.height < second.y)) {
             return true;
-    };
+    }
+    else return false
 };
+
+
