@@ -278,12 +278,40 @@ class Tile {
                 selectedCard = null
                 playerGold -= 1
             }    
-            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "wall" && this.align == "blue" && playerGold > 0 ){
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "wall" && this.align == "blue" && playerGold > 1 ){
+                if(this.building || this.unit) return
+                this.building = new Wall(this.position, "blue")
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGold -= 2
+            }    
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "fortress" && this.align == "blue" && playerGold > 1 ){
+                if(this.building || this.unit) return
+                this.building = new Fortress(this.position, "blue")
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGold -= 2
+            }    
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "bank" && this.align == "blue" && playerGold > 3 ){
+                if(this.building || this.unit) return
+                this.building = new Bank(this.position, "blue")
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGold -= 4
+            }    
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "armory" && this.align == "blue" && playerGold > 2 ){
+                if(this.building || this.unit) return
+                this.building = new Armory(this.position, "blue")
+                hand.splice(handPosition, 1)
+                selectedCard = null
+                playerGold -= 3
+            } 
+            if(collison(this, mouse) && mouse.clicked == true && selectedCard === "range" && this.align == "blue" && playerGold > 3 ){
                 if(this.building || this.unit) return
                 this.building = new BuildingRange(this.position, "blue")
                 hand.splice(handPosition, 1)
                 selectedCard = null
-                playerGold -= 1
+                playerGold -= 4
             }    
         }
     }

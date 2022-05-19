@@ -46,9 +46,25 @@ class Card {
             drawCardBase(x,this.y, "Fort")
             drawFortCard(x, this.y)
         }
-        else if (this.type === "maniple"){
+        if (this.type === "maniple"){
             drawCardBase(x, this.y, "Manliple")
             drawManipleCard(x, this.y)
+        }
+        if (this.type === "wall"){
+            drawCardBase(x, this.y, "Wall")
+            drawWallCard(x, this.y)
+        }
+        if (this.type === "fortress"){
+            drawCardBase(x, this.y, "Fortress")
+            drawFortressCard(x, this.y)
+        }
+        if (this.type === "bank"){
+            drawCardBase(x, this.y, "Bank")
+            drawBankCard(x, this.y)
+        }
+        if (this.type === "armory"){
+            drawCardBase(x, this.y, "Armory")
+            drawArmoryCard(x, this.y)
         }
         ctx.fillStyle = 'white'
         ctx.strokeStyle = '#2762b5'

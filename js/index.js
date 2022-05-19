@@ -75,13 +75,17 @@ let startUp = () => {
     let aiStartSettlement = positionRandomizer(7, 10)
     tileArray[aiStartSettlement].building = new Settlement(aiStartSettlement, "red")
     capitalArray.push(tileArray[aiStartSettlement].building)
-    //gives player a bunch of forts for testing
-    for( i = 0; i < 4; i ++){
-        hand.push(new Card("fort"))
-    }
+    //gives player a bunch of cards for testing
+    hand.push(new Card("fort"))
     hand.push(new Card("maniple"))
     hand.push(new Card("aiTest"))
-    hand.push(new Card("wall"))
+    // hand.push(new Card("wall"))
+    // hand.push(new Card("fortress"))
+    // hand.push(new Card("bank"))
+    // hand.push(new Card("armory"))
+    // hand.push(new Card("range"))
+    // hand.push(new Card("armory"))
+    console.log(hand)
     animate()
 }
 startUp()
